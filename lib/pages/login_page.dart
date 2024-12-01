@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'register_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -8,13 +9,11 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Background with shapes
           Positioned.fill(
             child: CustomPaint(
               painter: BackgroundPainter(),
             ),
           ),
-          // Content
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
@@ -23,7 +22,6 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Logo
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -44,8 +42,6 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 40),
-
-                      // Welcome text
                       const Text(
                         'Welcome Back',
                         style: TextStyle(
@@ -63,22 +59,16 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 40),
-
-                      // Email input
                       TextFormField(
                         decoration: inputDecoration('Email'),
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 20),
-
-                      // Password input
                       TextFormField(
                         decoration: inputDecoration('Password'),
                         obscureText: true,
                       ),
                       const SizedBox(height: 30),
-
-                      // Login button
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
@@ -94,8 +84,6 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-
-                      // Or continue with
                       Row(
                         children: [
                           Expanded(child: Divider(color: Colors.white.withOpacity(0.5))),
@@ -110,8 +98,6 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-
-                      // Google and Apple logos
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -121,10 +107,13 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-
-                      // Register link
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const RegisterPage()),
+                          );
+                        },
                         child: Text(
                           'Don\'t have an account? Register',
                           style: TextStyle(
@@ -193,11 +182,9 @@ class BackgroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
 
-    // Background
     paint.color = const Color(0xFF4A47A3);
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
 
-    // Shapes
     paint.color = const Color(0xFF6C63FF).withOpacity(0.7);
     canvas.drawCircle(Offset(size.width * 0.2, size.height * 0.2), 100, paint);
     canvas.drawCircle(Offset(size.width * 0.8, size.height * 0.8), 150, paint);
