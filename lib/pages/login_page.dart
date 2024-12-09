@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/register_page.dart';
-import 'home.dart'; // Ensure this is the correct path to your HomePage
+import 'register_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -71,15 +70,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
-                        onPressed: () {
-                          // Navigate to HomePage
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            ),
-                          );
-                        },
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF6C63FF),
                           padding: const EdgeInsets.symmetric(
@@ -191,4 +182,25 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class BackgroundPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint();
+
+    paint.color = const Color(0xFF4A47A3);
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
+
+    paint.color = const Color(0xFF6C63FF).withOpacity(0.7);
+    canvas.drawCircle(Offset(size.width * 0.2, size.height * 0.2), 100, paint);
+    canvas.drawCircle(Offset(size.width * 0.8, size.height * 0.8), 150, paint);
+
+    paint.color = const Color(0xFF4A47A3).withOpacity(0.7);
+    canvas.drawCircle(Offset(size.width * 0.8, size.height * 0.2), 80, paint);
+    canvas.drawCircle(Offset(size.width * 0.2, size.height * 0.8), 120, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
