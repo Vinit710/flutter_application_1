@@ -1,28 +1,18 @@
-buildscript {
-    repositories {
-        google() // Ensure Google's Maven repository is included
-        mavenCentral() // Ensure Maven Central repository is included
-    }
-    dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22' // Kotlin plugin dependency
-        classpath 'com.android.tools.build:gradle:8.1.0' // Make sure this matches your Android Gradle Plugin version
-    }
-}
-
 allprojects {
     repositories {
-        google() // Include Google's repository for all projects
-        mavenCentral() // Include Maven Central repository for all projects
+        google()
+        mavenCentral()
     }
 }
 
 rootProject.buildDir = "../build"
-
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    project.evaluationDependsOn(":app") // Ensure all subprojects depend on ":app"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir // Task to clean the build directory
+    delete rootProject.buildDir
 }
