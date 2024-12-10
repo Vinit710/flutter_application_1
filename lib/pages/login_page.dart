@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'register_page.dart';
+import 'home.dart'; // Import the HomePage
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -70,20 +71,24 @@ class LoginPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF6C63FF),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 50, vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
+  onPressed: () {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) =>  HomePage()),
+    );
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: const Color(0xFF6C63FF),
+    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+    ),
+  ),
+  child: const Text(
+    'Login',
+    style: TextStyle(fontSize: 18, color: Colors.white),
+  ),
+),
                       const SizedBox(height: 20),
                       Row(
                         children: [
