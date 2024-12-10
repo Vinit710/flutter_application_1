@@ -71,6 +71,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
+<<<<<<< HEAD
   onPressed: () {
     Navigator.pushReplacement(
       context,
@@ -89,23 +90,33 @@ class LoginPage extends StatelessWidget {
     style: TextStyle(fontSize: 18, color: Colors.white),
   ),
 ),
+=======
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF6C63FF),
+                          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+>>>>>>> e99bc60a24d31d1704a8bb33c15aa846bc6401c6
                       const SizedBox(height: 20),
                       Row(
                         children: [
-                          Expanded(
-                              child: Divider(
-                                  color: Colors.white.withOpacity(0.5))),
+                          Expanded(child: Divider(color: Colors.white.withOpacity(0.5))),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
                               'Or continue with',
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(0.8)),
+                              style: TextStyle(color: Colors.white.withOpacity(0.8)),
                             ),
                           ),
-                          Expanded(
-                              child: Divider(
-                                  color: Colors.white.withOpacity(0.5))),
+                          Expanded(child: Divider(color: Colors.white.withOpacity(0.5))),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -122,8 +133,7 @@ class LoginPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const RegisterPage()),
+                            MaterialPageRoute(builder: (context) => const RegisterPage()),
                           );
                         },
                         child: Text(
@@ -209,3 +219,4 @@ class BackgroundPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+

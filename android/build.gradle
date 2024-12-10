@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 buildscript {
     repositories {
         google() // Ensure Google's Maven repository is included
@@ -10,20 +11,23 @@ buildscript {
     }
 }
 
+=======
+>>>>>>> e99bc60a24d31d1704a8bb33c15aa846bc6401c6
 allprojects {
     repositories {
-        google() // Include Google's repository for all projects
-        mavenCentral() // Include Maven Central repository for all projects
+        google()
+        mavenCentral()
     }
 }
 
 rootProject.buildDir = "../build"
-
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    project.evaluationDependsOn(":app") // Ensure all subprojects depend on ":app"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir // Task to clean the build directory
+    delete rootProject.buildDir
 }
