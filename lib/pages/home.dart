@@ -13,8 +13,9 @@ class _HomePageState extends State<HomePage> {
   File? faceImage;
   File? poseImage;
   String? generatedImageUrl;
-  final String apiUrl = 'https://instantx-instantid.hf.space/run/generate_image'; // Update with the actual endpoint
+  final String apiUrl = 'https://backend-ps.onrender.com/generate-image'; // Replace with your actual Render URL
 
+  // Function to pick images (face or pose)
   Future<void> pickImage(bool isFaceImage) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -30,46 +31,48 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // Function to generate image
   Future<void> generateImage() async {
-    if (faceImage == null || poseImage == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please select both images')),
-      );
-      return;
-    }
-
-    try {
-      var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
-
-      // Attach images
-      request.files.add(await http.MultipartFile.fromPath('face_image_path', faceImage!.path));
-      request.files.add(await http.MultipartFile.fromPath('pose_image_path', poseImage!.path));
-
-      // Add other parameters (customize as needed)
-      request.fields['prompt'] = "Hello!!";
-      request.fields['negative_prompt'] = "(lowres, low quality)";
-      request.fields['style_name'] = "(No style)";
-      request.fields['num_steps'] = '30';
-      request.fields['identitynet_strength_ratio'] = '0.8';
-      request.fields['guidance_scale'] = '5';
-      request.fields['enable_LCM'] = 'true';
-
-      var response = await request.send();
-
-      if (response.statusCode == 200) {
-        final respStr = await response.stream.bytesToString();
-        final decodedResponse = jsonDecode(respStr);
-
-        setState(() {
-          generatedImageUrl = decodedResponse['data'][0];
-        });
-      } else {
-        print('Error: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
+  if (faceImage == null || poseImage == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Please select both face and pose images')),
+    );
+    return;
   }
+
+  try {
+    var uri = Uri.parse(apiUrl);
+    
+    var request = http.MultipartRequest('POST', uri);
+    request.files.add(await http.MultipartFile.fromPath('face_image', faceImage!.path));
+    request.files.add(await http.MultipartFile.fromPath('pose_image', poseImage!.path));
+
+    request.fields['prompt'] = "a man doing a silly pose wearing a suit";
+    // ... other fields
+
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+
+    print('Response Status: ${response.statusCode}');
+    print('Response Body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final decodedResponse = jsonDecode(response.body);
+      setState(() {
+        generatedImageUrl = decodedResponse['generatedImageUrl'];
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to generate image. Status: ${response.statusCode}')),
+      );
+    }
+  } catch (e) {
+    print('Generation Error: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error: $e')),
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {

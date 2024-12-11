@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 buildscript {
     repositories {
         google() // Ensure Google's Maven repository is included
@@ -11,8 +10,6 @@ buildscript {
     }
 }
 
-=======
->>>>>>> e99bc60a24d31d1704a8bb33c15aa846bc6401c6
 allprojects {
     repositories {
         google()
