@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'register_page.dart';
-import 'home.dart'; // Import the HomePage
+import 'imgtopose.dart'; // Import the HomePage
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -78,7 +78,7 @@ Widget build(BuildContext context) {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
+                          MaterialPageRoute(builder: (context) => HomePage1()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
