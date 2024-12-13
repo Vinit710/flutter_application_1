@@ -1,8 +1,11 @@
 # flutter_application_1
 
 # to run
+```
 In terminal use:
+flutter pub get
 flutter run
+```
 
 
 A new Flutter project.
