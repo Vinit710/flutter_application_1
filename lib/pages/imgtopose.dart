@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'home.dart';
+import 'genai.dart';
+import 'AImagic.dart';
 
 
 class HomePage1 extends StatelessWidget {
@@ -73,23 +75,41 @@ class HomePage1 extends StatelessWidget {
                 SizedBox(height: 32),
 
                 // Features
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _buildFeatureCard(
-                      icon: Icons.face,
-                      label: 'Face Swap',
-                    ),
-                    _buildFeatureCard(
-                      icon: Icons.camera_alt,
-                      label: 'Pose Transfer',
-                    ),
-                    _buildFeatureCard(
-                      icon: Icons.auto_fix_high,
-                      label: 'AI Magic',
-                    ),
-                  ],
-                ),
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    _buildFeatureCard(
+      icon: Icons.face,
+      label: 'GenAI',
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => GenAIPage()),
+        );
+      },
+    ),
+    _buildFeatureCard(
+      icon: Icons.camera_alt,
+      label: 'Pose Transfer',
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      },
+    ),
+    _buildFeatureCard(
+      icon: Icons.auto_fix_high,
+      label: 'AI Magic',
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AIMagicPage()),
+        );
+      },
+    ),
+  ],
+),
 
                 Spacer(),
 
@@ -130,8 +150,10 @@ class HomePage1 extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureCard({required IconData icon, required String label}) {
-    return Container(
+  Widget _buildFeatureCard({required IconData icon, required String label, required VoidCallback onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
       width: 100,
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
       decoration: BoxDecoration(
@@ -163,6 +185,7 @@ class HomePage1 extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 }
