@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:lottie/lottie.dart';
 import 'home.dart';
 import 'genai.dart';
 import 'AImagic.dart';
 
-
-class HomePage1 extends StatelessWidget {
+class HomePage1 extends StatefulWidget {
   const HomePage1({Key? key}) : super(key: key);
+
+  @override
+  _HomePage1State createState() => _HomePage1State();
+}
+
+class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,175 +38,293 @@ class HomePage1 extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFFF0F4F8),
-              Color(0xFFE6E6FA),
+              Color(0xFF1A237E),
+              Color(0xFF3949AB),
             ],
           ),
         ),
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // App Bar
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'InstantID',
-                      style: GoogleFonts.poppins(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF6A5ACD),
-                      ),
+          child: Column(
+            children: [
+              _buildAppBar(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildHeroSection(),
+                        SizedBox(height: 32),
+                        _buildFeatures(),
+                        SizedBox(height: 32),
+                        _buildRecentWorks(),
+                      ],
                     ),
-                    Icon(
-                      Icons.science_rounded,
-                      color: Color(0xFF6A5ACD),
-                      size: 30,
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 40),
-
-                // Main Content
-                Text(
-                  'Transform Your Photos\nwith AI Magic',
-                  style: GoogleFonts.poppins(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black87,
-                    height: 1.2,
                   ),
                 ),
-
-                SizedBox(height: 16),
-
-                Text(
-                  'Blend faces and poses seamlessly using cutting-edge AI technology. Upload a face and a pose, and watch as our advanced algorithms create stunning, unique images in seconds.',
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    color: Colors.black54,
-                    height: 1.5,
-                  ),
-                ),
-
-                SizedBox(height: 32),
-
-                // Features
-Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-    _buildFeatureCard(
-      icon: Icons.face,
-      label: 'GenAI',
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => GenAIPage()),
-        );
-      },
-    ),
-    _buildFeatureCard(
-      icon: Icons.camera_alt,
-      label: 'Pose Transfer',
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
-      },
-    ),
-    _buildFeatureCard(
-      icon: Icons.auto_fix_high,
-      label: 'AI Magic',
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => AIMagicPage()),
-        );
-      },
-    ),
-  ],
-),
-
-                Spacer(),
-
-                // Try Now Button
-                Center(
-  child: ElevatedButton(
-    onPressed: () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    },
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Color(0xFF6A5ACD),
-      foregroundColor: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: 80, vertical: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+              ),
+            ],
+          ),
+        ),
       ),
-      elevation: 5,
-    ),
-    child: Text(
-      'Try Now',
-      style: GoogleFonts.inter(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ),
-),
+      bottomNavigationBar: _buildBottomNavBar(),
+      floatingActionButton: _buildFloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
+  }
 
-                SizedBox(height: 16),
-              ],
+  Widget _buildAppBar() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'InstantID',
+            style: GoogleFonts.poppins(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
+          ),
+          IconButton(
+            icon: Icon(Icons.notifications, color: Colors.white),
+            onPressed: () {
+              // TODO: Implement notifications
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeroSection() {
+    return AnimationConfiguration.synchronized(
+      duration: const Duration(milliseconds: 500),
+      child: SlideAnimation(
+        verticalOffset: 50.0,
+        child: FadeInAnimation(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Transform Your Photos\nwith AI Magic',
+                style: GoogleFonts.poppins(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  height: 1.2,
+                ),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Blend faces and poses seamlessly using cutting-edge AI technology.',
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  color: Colors.white70,
+                  height: 1.5,
+                ),
+              ),
+              SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Color(0xFF3949AB),
+                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  'Get Started',
+                  style: GoogleFonts.inter(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildFeatureCard({required IconData icon, required String label, required VoidCallback onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      width: 100,
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            offset: Offset(0, 4),
+  Widget _buildFeatures() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Features',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            color: Color(0xFF6A5ACD),
-            size: 40,
-          ),
-          SizedBox(height: 8),
-          Text(
-            label,
-            style: GoogleFonts.inter(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
+        ),
+        SizedBox(height: 16),
+        AnimationConfiguration.synchronized(
+          duration: const Duration(milliseconds: 500),
+          child: SlideAnimation(
+            horizontalOffset: 50.0,
+            child: FadeInAnimation(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildFeatureCard(
+                    icon: Icons.face,
+                    label: 'GenAI',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => GenAIPage())),
+                  ),
+                  _buildFeatureCard(
+                    icon: Icons.camera_alt,
+                    label: 'Pose Transfer',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())),
+                  ),
+                  _buildFeatureCard(
+                    icon: Icons.auto_fix_high,
+                    label: 'AI Magic',
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AIMagicPage())),
+                  ),
+                ],
+              ),
             ),
           ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeatureCard({required IconData icon, required String label, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 100,
+        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              color: Colors.white,
+              size: 40,
+            ),
+            SizedBox(height: 8),
+            Text(
+              label,
+              style: GoogleFonts.inter(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
+
+  Widget _buildRecentWorks() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Recent Works',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        SizedBox(height: 16),
+        AnimationConfiguration.synchronized(
+          duration: const Duration(milliseconds: 500),
+          child: SlideAnimation(
+            horizontalOffset: 50.0,
+            child: FadeInAnimation(
+              child: Container(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 150,
+                      margin: EdgeInsets.only(right: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          image: NetworkImage('https://picsum.photos/200/300?random=$index'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBottomNavBar() {
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      notchMargin: 8.0,
+      child: Container(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.home, color: _currentIndex == 0 ? Color(0xFF3949AB) : Colors.grey),
+              onPressed: () => setState(() => _currentIndex = 0),
+            ),
+            IconButton(
+              icon: Icon(Icons.search, color: _currentIndex == 1 ? Color(0xFF3949AB) : Colors.grey),
+              onPressed: () => setState(() => _currentIndex = 1),
+            ),
+            SizedBox(width: 40), // Placeholder for FAB
+            IconButton(
+              icon: Icon(Icons.favorite, color: _currentIndex == 2 ? Color(0xFF3949AB) : Colors.grey),
+              onPressed: () => setState(() => _currentIndex = 2),
+            ),
+            IconButton(
+              icon: Icon(Icons.person, color: _currentIndex == 3 ? Color(0xFF3949AB) : Colors.grey),
+              onPressed: () => setState(() => _currentIndex = 3),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    return FloatingActionButton(
+      child: Icon(Icons.add_a_photo),
+      onPressed: () {
+        // TODO: Implement photo upload
+      },
+      backgroundColor: Color(0xFF3949AB),
+    );
+  }
 }

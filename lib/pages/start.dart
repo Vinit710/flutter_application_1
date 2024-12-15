@@ -13,19 +13,39 @@ class StartPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            // Image container with rounded corners
+            // Image container with rounded corners and shadow
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 24),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                color: Colors.black,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.red.withOpacity(0.5),
+                    blurRadius: 30,
+                    spreadRadius: 5,
+                  ),
+                ],
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
-                child: Image.asset(
-                  'lib/images/astro.png', // Make sure to add this image to your assets
-                  fit: BoxFit.cover,
-                  height: 400,
+                child: Stack(
+                  children: [
+                    // Red gradient overlay
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                          colors: [Colors.red.withOpacity(0.3), Colors.transparent],
+                          stops: const [0.2, 1.0],
+                          radius: 0.8,
+                        ),
+                      ),
+                    ),
+                    Image.asset(
+                      'lib/images/astro.png', // Make sure to add this image to your assets
+                      fit: BoxFit.cover,
+                      height: 400,
+                    ),
+                  ],
                 ),
               ),
             ),
