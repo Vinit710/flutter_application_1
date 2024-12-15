@@ -6,6 +6,89 @@ import 'home.dart';
 import 'genai.dart';
 import 'AImagic.dart';
 
+class GlowingText extends StatefulWidget {
+  final String text;
+  final TextStyle style;
+
+  const GlowingText({Key? key, required this.text, required this.style}) : super(key: key);
+
+  @override
+  _GlowingTextState createState() => _GlowingTextState();
+}
+
+class _GlowingTextState extends State<GlowingText> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late List<Animation<double>> _opacityAnimations;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: widget.text.length * 200),
+    );
+
+    _opacityAnimations = List.generate(
+      widget.text.length,
+      (index) => Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: Interval(index / widget.text.length, (index + 1) / widget.text.length, curve: Curves.easeInOut),
+        ),
+      ),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(
+            widget.text.length,
+            (index) => _buildGlowingLetter(index),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildGlowingLetter(int index) {
+    return AnimatedBuilder(
+      animation: _opacityAnimations[index],
+      builder: (context, child) {
+        return Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(_opacityAnimations[index].value * 0.5),
+                blurRadius: 10,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          child: Text(
+            widget.text[index],
+            style: widget.style.copyWith(
+              color: Colors.white.withOpacity(_opacityAnimations[index].value),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class HomePage1 extends StatefulWidget {
   const HomePage1({Key? key}) : super(key: key);
 
@@ -38,8 +121,8 @@ class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMix
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF1A237E),
-              Color(0xFF3949AB),
+              Color(0xFF1A1A2E),
+              Color(0xFF16213E),
             ],
           ),
         ),
@@ -108,10 +191,10 @@ class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMix
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Transform Your Photos\nwith AI Magic',
+              GlowingText(
+                text: 'Imagine And\nCreate',
                 style: GoogleFonts.poppins(
-                  fontSize: 32,
+                  fontSize: 40,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
                   height: 1.2,
@@ -135,8 +218,8 @@ class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMix
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Color(0xFF3949AB),
+                  backgroundColor: Color(0xFF8A4FFF),
+                  foregroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -209,7 +292,7 @@ class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMix
         width: 100,
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.1),
+          color: Color(0xFF0F3460).withOpacity(0.2),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -296,20 +379,20 @@ class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMix
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: Icon(Icons.home, color: _currentIndex == 0 ? Color(0xFF3949AB) : Colors.grey),
+              icon: Icon(Icons.home, color: _currentIndex == 0 ? Color(0xFF8A4FFF) : Colors.grey),
               onPressed: () => setState(() => _currentIndex = 0),
             ),
             IconButton(
-              icon: Icon(Icons.search, color: _currentIndex == 1 ? Color(0xFF3949AB) : Colors.grey),
+              icon: Icon(Icons.search, color: _currentIndex == 1 ? Color(0xFF8A4FFF) : Colors.grey),
               onPressed: () => setState(() => _currentIndex = 1),
             ),
             SizedBox(width: 40), // Placeholder for FAB
             IconButton(
-              icon: Icon(Icons.favorite, color: _currentIndex == 2 ? Color(0xFF3949AB) : Colors.grey),
+              icon: Icon(Icons.favorite, color: _currentIndex == 2 ? Color(0xFF8A4FFF) : Colors.grey),
               onPressed: () => setState(() => _currentIndex = 2),
             ),
             IconButton(
-              icon: Icon(Icons.person, color: _currentIndex == 3 ? Color(0xFF3949AB) : Colors.grey),
+              icon: Icon(Icons.person, color: _currentIndex == 3 ? Color(0xFF8A4FFF) : Colors.grey),
               onPressed: () => setState(() => _currentIndex = 3),
             ),
           ],
@@ -324,7 +407,8 @@ class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMix
       onPressed: () {
         // TODO: Implement photo upload
       },
-      backgroundColor: Color(0xFF3949AB),
+      backgroundColor: Color(0xFF8A4FFF),
     );
   }
 }
+
