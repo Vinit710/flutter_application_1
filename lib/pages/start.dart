@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -15,19 +16,19 @@ class StartPage extends StatelessWidget {
             const Spacer(),
             // Image container with rounded corners and shadow
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 48),
+              margin: const EdgeInsets.symmetric(horizontal: 36),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    color: Color.fromRGBO(255, 14, 22, 0.6),
-                    blurRadius: 256,
-                    spreadRadius: 5,
+                    color: Color(0x99FF0E16),
+                    blurRadius: 196,
+                    spreadRadius: 4,
                   ),
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(48),
+                borderRadius: BorderRadius.circular(36),
                 child: Stack(
                   children: [
                     // Red gradient overlay
@@ -46,7 +47,7 @@ class StartPage extends StatelessWidget {
                     Image.asset(
                       'lib/images/astro.png', // Make sure to add this image to your assets
                       fit: BoxFit.cover,
-                      height: 400,
+                      height: 412,
                     ),
                   ],
                 ),
@@ -54,15 +55,31 @@ class StartPage extends StatelessWidget {
             ),
             const SizedBox(height: 48),
             // Text section
-            const Text(
-              'Where Creativity',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            const Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Where ',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 32,
+                      fontWeight: FontWeight.normal, // Regular weight
+                      color: Colors.white,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Creativity',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold, // Bold weight
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
+
             const Text(
               'Meets',
               style: TextStyle(
@@ -82,37 +99,52 @@ class StartPage extends StatelessWidget {
             ),
             const Spacer(),
             // Get Started Button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF8A4FFF), // Purple color
-                  minimumSize: const Size(double.infinity, 56),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(28),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(165, 185, 255, 0.2),
+                    blurRadius: 128,
+                    spreadRadius: 4,
                   ),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.rocket_launch, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text(
-                      'Get Started',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                ],
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 52, vertical: 32),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF8E37FE), // Purple color
+                    minimumSize: const Size(double.infinity, 62),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
                     ),
-                  ],
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.wandMagicSparkles,
+                          color: Colors.white),
+                      SizedBox(width: 8),
+                      Text(
+                        'Get Started',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
