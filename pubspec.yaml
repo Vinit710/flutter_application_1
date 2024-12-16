@@ -33,6 +33,7 @@ dependencies:
   http: ^1.2.0 # Use the latest version
   image_picker: ^1.0.7 # For selecting images from gallery or camera
   google_fonts: ^6.2.1
+  font_awesome_flutter: ^10.8.0
   
   flutter_staggered_animations: ^1.1.1
   lottie: ^2.3.2
@@ -75,6 +76,14 @@ flutter:
     - lib/images/
    # - images/a_dot_ham.jpeg
 
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: lib/assets/fonts/Poppins-Regular.ttf
+        - asset: lib/assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: lib/assets/fonts/Poppins-Italic.ttf
+          style: italic
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
