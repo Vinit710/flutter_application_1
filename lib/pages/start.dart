@@ -15,26 +15,29 @@ class StartPage extends StatelessWidget {
             const Spacer(),
             // Image container with rounded corners and shadow
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24),
+              margin: const EdgeInsets.symmetric(horizontal: 48),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.red.withOpacity(0.5),
-                    blurRadius: 30,
+                    color: Color.fromRGBO(255, 14, 22, 0.6),
+                    blurRadius: 256,
                     spreadRadius: 5,
                   ),
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(48),
                 child: Stack(
                   children: [
                     // Red gradient overlay
                     Container(
                       decoration: BoxDecoration(
                         gradient: RadialGradient(
-                          colors: [Colors.red.withOpacity(0.3), Colors.transparent],
+                          colors: [
+                            Colors.red.withOpacity(0.3),
+                            Colors.transparent
+                          ],
                           stops: const [0.2, 1.0],
                           radius: 0.8,
                         ),
@@ -54,6 +57,7 @@ class StartPage extends StatelessWidget {
             const Text(
               'Where Creativity',
               style: TextStyle(
+                fontFamily: 'Poppins',
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -62,14 +66,15 @@ class StartPage extends StatelessWidget {
             const Text(
               'Meets',
               style: TextStyle(
+                fontFamily: 'Poppins',
                 fontSize: 32,
-                fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
             const Text(
               'Imagination.',
               style: TextStyle(
+                fontFamily: 'Poppins',
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -102,6 +107,7 @@ class StartPage extends StatelessWidget {
                       'Get Started',
                       style: TextStyle(
                         fontSize: 18,
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
