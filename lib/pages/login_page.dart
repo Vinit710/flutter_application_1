@@ -34,13 +34,13 @@ class _LoginScreenState extends State<LoginPage> {
                       234,
                       55,
                       228,
-                      0.4,
+                      0.6,
                     ),
                     width: 4,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color.fromRGBO(165, 185, 255, 0.25),
+                      color: Color.fromRGBO(165, 185, 255, 0.3),
                       blurRadius: 256,
                       spreadRadius: 4,
                     ),
@@ -151,8 +151,8 @@ class _LoginScreenState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: Color.fromRGBO(165, 185, 255, 0.3),
-                      blurRadius: 128,
+                      color: Color.fromRGBO(165, 185, 255, 0.4),
+                      blurRadius: 192,
                       spreadRadius: 4,
                     ),
                   ],
