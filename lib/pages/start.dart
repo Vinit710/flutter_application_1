@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'auth_page.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -118,7 +119,7 @@ class StartPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
+                          builder: (context) =>  AuthCheck()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
