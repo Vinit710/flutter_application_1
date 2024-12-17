@@ -8,7 +8,7 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A2E), // Dark background color
+      backgroundColor: const Color(0xFF0C081E), // Dark background color
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
