@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'register_page.dart';
 import 'imgtopose.dart'; // Import the HomePage
-import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,8 +25,8 @@ class _LoginScreenState extends State<LoginPage> {
             children: [
               // Magic wand icon with gradient border
               Container(
-                width: 156,
-                height: 156,
+                width: 148,
+                height: 148,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginPage> {
                   size: 72,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
 
               // Welcome Back text
               const Text(
@@ -84,7 +84,9 @@ class _LoginScreenState extends State<LoginPage> {
                   ),
                   decoration: InputDecoration(
                     hintText: 'Email',
-                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                    hintStyle: TextStyle(
+                        color: Colors.white.withOpacity(0.5),
+                        fontFamily: 'poppins'),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32),
                       borderSide: BorderSide.none,
@@ -156,7 +158,12 @@ class _LoginScreenState extends State<LoginPage> {
                   ],
                 ),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage1()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF8E37FE),
                     minimumSize: const Size(double.infinity, 50),
@@ -219,7 +226,13 @@ class _LoginScreenState extends State<LoginPage> {
                         fontFamily: 'poppins'),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage()),
+                      );
+                    },
                     child: const Text(
                       'Register',
                       style: TextStyle(
