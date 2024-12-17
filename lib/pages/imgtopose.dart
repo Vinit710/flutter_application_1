@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:lottie/lottie.dart';
 import 'home.dart';
 import 'genai.dart';
+import 'profile.dart';
 import 'AImagic.dart';
+import 'login_page.dart';
 
 class GlowingText extends StatefulWidget {
   final String text;
@@ -158,29 +159,74 @@ class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMix
   }
 
   Widget _buildAppBar() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'InstantID',
-            style: GoogleFonts.poppins(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'InstantID',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.notifications, color: Colors.white),
+              onPressed: () {
+                // TODO: Implement notifications
+              },
             ),
-          ),
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {
-              // TODO: Implement notifications
-            },
-          ),
-        ],
-      ),
-    );
-  }
+            PopupMenuButton<String>(
+              icon: Icon(Icons.account_circle, color: Colors.white),
+              onSelected: (value) {
+                if (value == 'Edit Profile') {
+                  _navigateToProfile();
+                } else if (value == 'Log Out') {
+                  _logout();
+                }
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 'Edit Profile',
+                  child: Text('Edit Profile'),
+                ),
+                PopupMenuItem(
+                  value: 'Log Out',
+                  child: Text('Log Out'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+// Navigate to the Profile page
+void _navigateToProfile() {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => ProfilePage()),
+  );
+}
+
+// Logout function
+void _logout() {
+  // Clear user session data (if any)
+  // For example: SharedPreferences prefs = await SharedPreferences.getInstance();
+  // await prefs.clear();
+
+  // Navigate to the login page
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => LoginPage()),
+  );
+}
 
   Widget _buildHeroSection() {
     return AnimationConfiguration.synchronized(
