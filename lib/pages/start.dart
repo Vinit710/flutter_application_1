@@ -46,7 +46,7 @@ class StartPage extends StatelessWidget {
                       ),
                     ),
                     Image.asset(
-                      'lib/images/astro.png', // Make sure to add this image to your assets
+                      'lib/images/astro.jpg', // Make sure to add this image to your assets
                       fit: BoxFit.cover,
                       height: 412,
                     ),
@@ -118,8 +118,7 @@ class StartPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) =>  AuthCheck()),
+                      MaterialPageRoute(builder: (context) => AuthCheck()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
