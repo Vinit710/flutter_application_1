@@ -237,15 +237,20 @@ void _logout() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GlowingText(
-                text: 'Imagine And\nCreate',
-                style: GoogleFonts.poppins(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                  height: 1.2,
-                ),
-              ),
+              RichText(
+  text: TextSpan(
+    style: GoogleFonts.poppins(
+      fontSize: 40,
+      fontWeight: FontWeight.w800,
+      color: Colors.white,
+      height: 1.2,
+    ),
+    children: [
+      TextSpan(text: 'Imagine And\n'),
+      TextSpan(text: 'Create'),
+    ],
+  ),
+),
               SizedBox(height: 16),
               Text(
                 'Blend faces and poses seamlessly using cutting-edge AI technology.',
