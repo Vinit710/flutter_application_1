@@ -17,39 +17,40 @@ class _GenAIPageState extends State<GenAIPage> {
 
   // Function to send POST request to the API
   Future<void> _generateImage() async {
-    final String prompt = _promptController.text.trim();
-    if (prompt.isEmpty) return;
+  final String prompt = _promptController.text.trim();
+  if (prompt.isEmpty) return;
 
-    setState(() {
-      _isLoading = true;
-      _generatedImageUrl = null;
-    });
+  setState(() {
+    _isLoading = true;
+    _generatedImageUrl = null;
+  });
 
-    try {
-      final response = await http.post(
-        Uri.parse('https://backend-ps.onrender.com/generate-prompt-image'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'prompt': prompt}),
-      );
+  try {
+    final response = await http.post(
+      Uri.parse('https://backend-ps.onrender.com/generate-prompt-image'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'prompt': prompt}),
+    );
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-        final String imageUrl = data['generatedImageUrl']['url'];
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final String imageUrl = data['generatedImageUrl']; // Access the URL directly
 
-        setState(() {
-          _generatedImageUrl = imageUrl;
-        });
-      } else {
-        _showError('Failed to generate image. Please try again.');
-      }
-    } catch (e) {
-      _showError('An error occurred: $e');
-    } finally {
       setState(() {
-        _isLoading = false;
+        _generatedImageUrl = imageUrl;
       });
+    } else {
+      _showError('Failed to generate image. Please try again.');
     }
+  } catch (e) {
+    _showError('An error occurred: $e');
+  } finally {
+    setState(() {
+      _isLoading = false;
+    });
   }
+}
+
 
   // Function to show error messages
   void _showError(String message) {

@@ -251,15 +251,6 @@ void _logout() {
     ],
   ),
 ),
-              SizedBox(height: 16),
-              Text(
-                'Blend faces and poses seamlessly using cutting-edge AI technology.',
-                style: GoogleFonts.inter(
-                  fontSize: 16,
-                  color: Colors.white70,
-                  height: 1.5,
-                ),
-              ),
               SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
