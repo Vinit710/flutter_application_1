@@ -256,7 +256,7 @@ void _logout() {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => ImageGenerationPage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -311,7 +311,7 @@ void _logout() {
                   _buildFeatureCard(
                     icon: Icons.camera_alt,
                     label: 'Pose Transfer',
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ImageGenerationPage())),
                   ),
                   _buildFeatureCard(
                     icon: Icons.auto_fix_high,
