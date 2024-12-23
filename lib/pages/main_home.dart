@@ -162,7 +162,7 @@ class _HomePage1State extends State<MainHome> with SingleTickerProviderStateMixi
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'InstantID',
+            'FuisionArt',
             style: GoogleFonts.poppins(
               fontSize: 24,
               fontWeight: FontWeight.bold,

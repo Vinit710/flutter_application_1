@@ -7,6 +7,7 @@ import 'profile.dart';
 import 'AImagic.dart';
 import 'login_page.dart';
 import 'main_home.dart';
+import 'setting.dart';
 
 class HomePage1 extends StatefulWidget {
   const HomePage1({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _HomePage1State extends State<HomePage1> with SingleTickerProviderStateMix
     MainHome(),
     ImageGenerationPage(),
     GenAIPage(),
-    ProfilePage(), // Assuming Settings is part of the ProfilePage
+    SettingsPage()// Assuming Settings is part of the ProfilePage
   ];
 
   @override
