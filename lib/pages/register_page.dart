@@ -17,10 +17,8 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _obscurePassword = true;
   bool _isLoading = false;
 
-  // Form key for validation
   final _formKey = GlobalKey<FormState>();
 
-  // Email validation regex
   final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
   String? _validateEmail(String? value) {
@@ -63,12 +61,14 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
-      // Create user with email and password
-      final UserCredential userCredential = 
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final UserCredential userCredential =
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+
+      // Here you could add the username to the user's profile if needed
+      // await userCredential.user?.updateProfile(displayName: _usernameController.text);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -78,7 +78,6 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         );
 
-        // Navigate to home page
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomePage1()),
@@ -86,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage;
-      
+
       switch (e.code) {
         case 'weak-password':
           errorMessage = 'The password provided is too weak.';
@@ -141,6 +140,31 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 80),
+                  // Magic wand icon with gradient border
+                  Container(
+                    width: 148,
+                    height: 148,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: const Color.fromRGBO(234, 55, 228, 0.6),
+                        width: 4,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color.fromRGBO(165, 185, 255, 0.3),
+                          blurRadius: 256,
+                          spreadRadius: 4,
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.auto_fix_high,
+                      color: Colors.white,
+                      size: 72,
+                    ),
+                  ),
+                  const SizedBox(height: 28),
                   const Text(
                     'Create Account',
                     style: TextStyle(
@@ -150,7 +174,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const Text(
+                    'Signup to get started',
+                    style: TextStyle(
+                      color: Color.fromRGBO(255, 255, 255, 0.6),
+                      fontFamily: 'poppins',
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 48),
 
                   // Email field
                   _buildTextField(
@@ -180,33 +212,45 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 24),
 
                   // Register button
-                  ElevatedButton(
-                    onPressed: _isLoading ? null : _register,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF8E37FE),
-                      minimumSize: const Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color.fromRGBO(165, 185, 255, 0.4),
+                          blurRadius: 192,
+                          spreadRadius: 4,
+                        ),
+                      ],
+                    ),
+                    child: ElevatedButton(
+                      onPressed: _isLoading ? null : _register,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF8E37FE),
+                        minimumSize: const Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                      child: _isLoading
+                          ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                          : const Text(
+                        'Register',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'poppins',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    child: _isLoading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
-                          )
-                        : const Text(
-                            'Register',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'poppins',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                   ),
                   const SizedBox(height: 24),
 
@@ -288,16 +332,16 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           suffixIcon: isPassword
               ? IconButton(
-                  icon: Icon(
-                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
-                    color: Colors.white.withOpacity(0.5),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscurePassword = !_obscurePassword;
-                    });
-                  },
-                )
+            icon: Icon(
+              _obscurePassword ? Icons.visibility_off : Icons.visibility,
+              color: Colors.white.withOpacity(0.5),
+            ),
+            onPressed: () {
+              setState(() {
+                _obscurePassword = !_obscurePassword;
+              });
+            },
+          )
               : null,
           errorStyle: const TextStyle(color: Colors.red),
         ),
@@ -305,3 +349,4 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
