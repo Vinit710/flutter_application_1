@@ -52,8 +52,8 @@ class SettingsPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _buildDeveloperCard(
-              'Shivam AKA Darkshadow',
-              'shivam1219r@gmail.com',
+              'Shivam AKA Dead Shadøw',
+              'shivam12119r@gmail.com',
               Icons.person,
             ),
             const SizedBox(height: 32),
