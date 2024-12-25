@@ -84,7 +84,7 @@ class AIMagicPage extends StatelessWidget {
                     elevation: 5,
                   ),
                   child: Text(
-                    'Try AI Magic',
+                    'Coming soon',
                     style: GoogleFonts.inter(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
