@@ -54,7 +54,7 @@ dev_dependencies:
 flutter_icons:
   
   android: true
-  image_path: "lib/images/playstore.png"
+  image_path: "lib/images/log.jpg"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
