@@ -102,6 +102,39 @@ class _ImageGenerationPageState extends State<ImageGenerationPage> {
     }
   }
 
+  Widget _buildInstructions() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'How it works:',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'poppins',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            '1. Select a face image\n2. Choose a pose image\n3. Click "Generate Image" to create a new image combining the face and pose',
+            style: TextStyle(
+              color: Colors.white70,
+              fontFamily: 'poppins',
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,21 +155,30 @@ class _ImageGenerationPageState extends State<ImageGenerationPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildImagePickerButton(true),
-            const SizedBox(height: 16),
-            _buildImageDisplay(faceImage),
-            const SizedBox(height: 24),
-            _buildImagePickerButton(false),
-            const SizedBox(height: 16),
-            _buildImageDisplay(poseImage),
-            const SizedBox(height: 24),
+            _buildInstructions(),
+            SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(child: _buildImagePickerButton(true)),
+                SizedBox(width: 16),
+                Expanded(child: _buildImagePickerButton(false)),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(child: _buildImageDisplay(faceImage)),
+                SizedBox(width: 16),
+                Expanded(child: _buildImageDisplay(poseImage)),
+              ],
+            ),
+            SizedBox(height: 24),
             _buildGenerateButton(),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
             if (isLoading)
-              const Center(
+              Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF8E37FE)),
                 ),
@@ -185,10 +227,11 @@ class _ImageGenerationPageState extends State<ImageGenerationPage> {
 
   Widget _buildImageDisplay(File? image) {
     return AspectRatio(
-      aspectRatio: 1, // This will create a square container
+      aspectRatio: 1,
       child: Container(
+        height: 150,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           gradient: LinearGradient(
             colors: [
               const Color(0xFF8D37FE).withOpacity(0.2),
@@ -197,17 +240,17 @@ class _ImageGenerationPageState extends State<ImageGenerationPage> {
           ),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           child: image != null
               ? Image.file(
                   image,
-                  fit: BoxFit.contain, // This ensures the full image is shown
+                  fit: BoxFit.cover,
                 )
               : const Center(
                   child: Icon(
                     Icons.image,
                     color: Colors.white54,
-                    size: 50,
+                    size: 40,
                   ),
                 ),
         ),
@@ -257,36 +300,34 @@ class _ImageGenerationPageState extends State<ImageGenerationPage> {
   }
 
   Widget _buildGeneratedImage() {
-    return AspectRatio(
-      aspectRatio: 16 / 9, // Adjust this ratio as needed
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFFA5B9FF).withOpacity(0.3),
-              blurRadius: 20,
-              spreadRadius: 2,
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.network(
-            generatedImageUrl!,
-            fit: BoxFit.contain, // This ensures the full image is shown
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                      : null,
-                  valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF8E37FE)),
-                ),
-              );
-            },
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFA5B9FF).withOpacity(0.3),
+            blurRadius: 20,
+            spreadRadius: 2,
           ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Image.network(
+          generatedImageUrl!,
+          fit: BoxFit.contain,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                    : null,
+                valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF8E37FE)),
+              ),
+            );
+          },
         ),
       ),
     );
