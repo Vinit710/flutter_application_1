@@ -31,12 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.0 # Use the latest version
+  url_launcher: ^6.3.1
   image_picker: ^1.0.7 # For selecting images from gallery or camera
   google_fonts: ^6.2.1
   font_awesome_flutter: ^10.8.0
   
   flutter_staggered_animations: ^1.1.1
-  lottie: ^2.3.2
+  lottie: ^3.2.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,7 +51,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.14.3
 
 flutter_icons:
   

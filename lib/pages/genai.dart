@@ -148,7 +148,11 @@ class _GenAIPageState extends State<GenAIPage> {
                     ),
                   ],
                 ),
-                child: ElevatedButton(
+                child: _isLoading
+                    ? CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                )
+                    : ElevatedButton(
                   onPressed: _generateImage,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -170,12 +174,6 @@ class _GenAIPageState extends State<GenAIPage> {
               ),
             ),
             SizedBox(height: 32),
-            if (_isLoading)
-              Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF8E37FE)),
-                ),
-              ),
             if (_generatedImageUrl != null) ...[
               Text(
                 'Generated Image:',
