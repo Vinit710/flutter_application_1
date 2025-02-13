@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'login_page.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -10,9 +11,19 @@ class SettingsPage extends StatelessWidget {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
-      (route) => false,
+          (route) => false,
     );
   }
+
+  Future<void> _launchEmail(String email) async {
+    final Uri emailLaunchUri = Uri(scheme: 'mailto', path: email);
+    if (await canLaunchUrl(emailLaunchUri)) {
+      await launchUrl(emailLaunchUri);
+    } else {
+      throw 'Could not launch $emailLaunchUri';
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +68,7 @@ class SettingsPage extends StatelessWidget {
               Icons.person,
             ),
             const SizedBox(height: 32),
-            
+
             const Text(
               'Support',
               style: TextStyle(
@@ -71,20 +82,20 @@ class SettingsPage extends StatelessWidget {
             _buildSettingsItem(
               'FAQs',
               Icons.help_outline,
-              () {},
+                  () {},
             ),
             _buildSettingsItem(
               'Report a Bug',
               Icons.bug_report_outlined,
-              () {},
+                  () {},
             ),
             _buildSettingsItem(
               'Contact Us',
               Icons.email_outlined,
-              () {},
+                  () {},
             ),
             const SizedBox(height: 32),
-            
+
             const Text(
               'Account',
               style: TextStyle(
@@ -98,7 +109,7 @@ class SettingsPage extends StatelessWidget {
             _buildSettingsItem(
               'Log Out',
               Icons.logout,
-              () => _signOut(context),
+                  () => _signOut(context),
               isDestructive: true,
             ),
           ],
@@ -108,50 +119,59 @@ class SettingsPage extends StatelessWidget {
   }
 
   Widget _buildDeveloperCard(String name, String email, IconData icon) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Color.fromRGBO(141, 55, 254, 0.4),
-            Color.fromRGBO(254, 55, 224, 0.4),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Color(0xFF8E37FE),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: Colors.white),
-          ),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                email,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.7),
-                  fontFamily: 'poppins',
-                ),
-              ),
+    return GestureDetector(
+      onTap: () => _launchEmail(email),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              Color.fromRGBO(141, 55, 254, 0.4),
+              Color.fromRGBO(254, 55, 224, 0.4),
             ],
           ),
-        ],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: const BoxDecoration(
+                color: Color(0xFF8E37FE),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: Colors.white),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'poppins',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    email,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.7),
+                      fontFamily: 'poppins',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.email,
+              color: Colors.white.withOpacity(0.7),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -177,3 +197,4 @@ class SettingsPage extends StatelessWidget {
     );
   }
 }
+
