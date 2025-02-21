@@ -34,8 +34,8 @@ android {
         applicationId = "com.dreamspace.flutter_application_1"
         minSdkVersion 23  // Ensure minSdkVersion is explicitly set to 23
         targetSdkVersion 34  // Set targetSdkVersion explicitly
-        versionCode 4
-        versionName "1.2.0"
+        versionCode 6
+        versionName "1.2.2"
     }
     
 

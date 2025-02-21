@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'imgtopose.dart'; // Your home page
+// Your home page
 import 'start.dart';
 
 class DisclaimerPage extends StatelessWidget {

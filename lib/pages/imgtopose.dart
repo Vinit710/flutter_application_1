@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'home.dart';
 import 'genai.dart';
-import 'profile.dart';
-import 'AImagic.dart';
-import 'login_page.dart';
 import 'main_home.dart';
 import 'setting.dart';
 
